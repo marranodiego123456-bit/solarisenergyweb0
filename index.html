@@ -7,10 +7,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0b0b0b; /* negro elegante */
+      --bg:#0b0b0b;
       --card:#0f0f0f;
       --muted:#9aa3a8;
-      --gold:#d4af37; /* dorado */
+      --gold:#d4af37;
       --white:#ffffff;
       --accent:#f5f5f5;
       --glass: rgba(255,255,255,0.04);
@@ -18,27 +18,26 @@
       font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     }
     *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#060606 0%, #0b0b0b 100%);color:var(--accent);-webkit-font-smoothing:antialiased}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#060606 0%, #0b0b0b 100%);
+      color:var(--accent);
+      -webkit-font-smoothing:antialiased
+    }
     .container{max-width:1100px;margin:40px auto;padding:32px}
 
     /* Header */
     header{display:flex;align-items:center;justify-content:space-between;gap:20px}
     .brand{display:flex;align-items:center;gap:14px}
-    .logo{
-      display: inline-block;
-    }
-    .logo img{
-      width: 150px;
-      height: auto;
-      display: block;
-      }
+    .logo{width:72px;height:72px;border-radius:14px;overflow:hidden;display:inline-block;background:linear-gradient(180deg,var(--white),#eaeaea);padding:6px}
     .logo img{width:100%;height:100%;object-fit:contain;display:block}
     h1.site-title{margin:0;font-size:20px;font-weight:800;letter-spacing:0.6px}
     p.tag{margin:0;color:var(--muted);font-size:13px}
     .contact{display:flex;flex-direction:column;align-items:flex-end}
     .phone{background:var(--gold);color:#000;padding:8px 12px;border-radius:10px;font-weight:700;text-decoration:none}
     .cta-row{display:flex;gap:12px;margin-top:16px}
-    .btn{background:transparent;border:1px solid rgba(255,255,255,0.08);padding:10px 14px;border-radius:10px;color:var(--accent);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.08);padding:10px 14px;border-radius:10px;color:var(--accent);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s ease}
+    .btn:hover{transform:translateY(-2px);opacity:0.9}
     .btn.primary{background:linear-gradient(90deg,var(--gold),#c99b2f);color:#07120a;border:none;box-shadow:var(--shadow)}
 
     /* Hero */
@@ -46,15 +45,30 @@
     .hero-left h2{font-size:40px;margin:0 0 12px 0;line-height:1.02}
     .hero-left p{color:var(--muted);font-size:16px;margin:0 0 18px}
     .stats{display:flex;gap:14px;margin-top:18px}
-    .stat{background:var(--glass);padding:12px;border-radius:10px;text-align:left}
+    .stat{background:var(--glass);padding:12px;border-radius:10px;text-align:left;transition:all 0.3s ease}
+    .stat:hover{transform:scale(1.05)}
     .stat b{display:block;font-size:18px;color:var(--gold)}
 
     .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:22px;border-radius:16px;box-shadow:var(--shadow)}
-    .mock{width:100%;height:260px;border-radius:10px;background:url('/mnt/data/30dbd432-9ea1-4bb2-b420-6d0ae97c7f48.jpg') center/cover no-repeat}
+    .mock{
+      width:100%;
+      height:260px;
+      border-radius:10px;
+      background:url('logo.png') center/contain no-repeat;
+      background-color:rgba(255,255,255,0.05);
+      animation:fadeIn 1s ease forwards;
+    }
+
+    /* Animación */
+    @keyframes fadeIn {
+      from{opacity:0;transform:translateY(20px)}
+      to{opacity:1;transform:translateY(0)}
+    }
 
     /* Projects gallery */
     .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
-    .proj{border-radius:12px;overflow:hidden;min-height:140px;background-size:cover;background-position:center;box-shadow:0 8px 20px rgba(0,0,0,0.6)}
+    .proj{border-radius:12px;overflow:hidden;min-height:140px;background-size:cover;background-position:center;box-shadow:0 8px 20px rgba(0,0,0,0.6);transition:all 0.4s ease}
+    .proj:hover{transform:scale(1.05)}
 
     /* Info section */
     .two-col{display:grid;grid-template-columns:1fr 360px;gap:22px;margin-top:28px}
@@ -63,6 +77,26 @@
     /* Footer */
     footer{margin-top:36px;padding:24px;border-top:1px solid rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center}
     footer p{margin:0;color:var(--muted)}
+
+    /* Admin Panel */
+    .admin-panel {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 420px;
+      max-height: 80vh;
+      overflow: auto;
+      background: rgba(20,20,20,0.9);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      border: 1px solid rgba(212,175,55,0.4);
+      padding: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.85);
+      display: none;
+      z-index: 9999;
+      animation:fadeIn 0.5s ease;
+    }
+    .admin-panel h4{margin-top:0;color:var(--gold)}
 
     /* Responsive */
     @media(max-width:980px){.hero{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,1fr)}.container{padding:18px}}
@@ -77,7 +111,7 @@
   <div class="container">
     <header>
       <div class="brand">
-        <span class="logo"><img src="/mnt/data/30dbd432-9ea1-4bb2-b420-6d0ae97c7f48.jpg" alt="Solaris Energy logo"></span>
+        <span class="logo"><img src="logo.png" alt="Solaris Energy logo"></span>
         <div>
           <h1 class="site-title">Solaris Energy</h1>
           <p class="tag">La energía solar en su máxima expresión</p>
@@ -108,7 +142,6 @@
           <a class="btn primary" href="#quote" id="cta-quote-2">Cotizar ahora</a>
           <a class="btn" href="https://wa.me/573222392822?text=Hola%20Solaris%20Energy,%20quiero%20cotizar%20un%20proyecto" target="_blank">Enviar WhatsApp</a>
         </div>
-
       </div>
 
       <aside class="card">
@@ -178,6 +211,16 @@
     </footer>
   </div>
 
+  <!-- Panel Privado -->
+  <div class="admin-panel" id="adminPanel">
+    <h4>Panel privado</h4>
+    <p class="muted">Administra tus proyectos:</p>
+    <button class="btn primary">Agregar proyecto</button>
+    <button class="btn">Editar proyecto</button>
+    <button class="btn">Borrar proyecto</button>
+    <button class="btn">Exportar documentos</button>
+  </div>
+
   <script>
     // Enviar formulario como mensaje a WhatsApp
     function openWhatsApp(message){
@@ -211,6 +254,18 @@
         var pre = 'Hola Solaris Energy, quiero agendar mi proyecto. Mi nombre: [TU NOMBRE]';
         openWhatsApp(pre);
       });
+    });
+
+    // Mostrar panel privado con contraseña
+    document.addEventListener("keydown", function(e){
+      if(e.ctrlKey && e.key === "p"){ // Ctrl+P abre panel privado
+        var pass = prompt("Ingrese contraseña de administrador:");
+        if(pass === "solaris123"){ // cámbiala a algo seguro
+          document.getElementById("adminPanel").style.display = "block";
+        } else {
+          alert("Contraseña incorrecta");
+        }
+      }
     });
   </script>
 </body>
