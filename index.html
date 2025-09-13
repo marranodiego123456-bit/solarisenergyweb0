@@ -51,11 +51,19 @@
     .stat b{display:block;font-size:18px;color:var(--gold)}
 
     .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:22px;border-radius:16px;box-shadow:var(--shadow)}
-    .mock{width:100%;height:260px;border-radius:10px;background:url('/mnt/data/30dbd432-9ea1-4bb2-b420-6d0ae97c7f48.jpg') center/cover no-repeat}
+    /* Aquí usamos logo.png en la misma carpeta (asegúrate de subirlo junto al HTML) */
+    .mock{
+      width:100%;
+      height:260px;
+      border-radius:10px;
+      background:url('logo.png') center/contain no-repeat #111;
+      background-color:rgba(255,255,255,0.04);
+    }
 
     /* Projects gallery */
     .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
-    .proj{border-radius:12px;overflow:hidden;min-height:140px;background-size:cover;background-position:center;box-shadow:0 8px 20px rgba(0,0,0,0.6);position:relative}
+    .proj{border-radius:12px;overflow:hidden;min-height:140px;background-size:cover;background-position:center;box-shadow:0 8px 20px rgba(0,0,0,0.6);position:relative;transition:transform .25s ease}
+    .proj:hover{transform:translateY(-6px)}
     .proj .overlay{
       position:absolute;left:0;right:0;bottom:0;padding:12px;background:linear-gradient(180deg,rgba(0,0,0,0.0),rgba(0,0,0,0.6));
       color:var(--accent);font-weight:600;
@@ -69,26 +77,36 @@
     footer{margin-top:36px;padding:24px;border-top:1px solid rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center}
     footer p{margin:0;color:var(--muted)}
 
-    /* Panel privado modal */
+    /* Panel privado modal - fondo amarillo y texto oscuro para destacar */
     .admin-btn { background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:var(--accent);cursor:pointer }
     .admin-panel {
-      position:fixed;right:24px;bottom:24px;width:420px;max-height:80vh;overflow:auto;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:14px;padding:18px;box-shadow:0 20px 50px rgba(0,0,0,0.7);
-      display:none;z-index:9999;
+      position:fixed;
+      right:24px;
+      bottom:24px;
+      width:420px;
+      max-height:80vh;
+      overflow:auto;
+      background:var(--gold); /* amarillo */
+      border-radius:14px;
+      padding:18px;
+      box-shadow:0 20px 50px rgba(0,0,0,0.7);
+      display:none;
+      z-index:9999;
+      color:#000; /* texto negro legible */
+      border: 1px solid rgba(0,0,0,0.12);
     }
     .admin-panel.active{display:block}
-    .admin-panel h3{margin-top:0;color:var(--gold)}
+    .admin-panel h3{margin-top:0;color:#000}
     .field{margin-bottom:10px}
-    input[type="text"], input[type="tel"], textarea, select { width:100%; padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04); background:transparent;color:var(--accent) }
-    input[type="file"]{color:var(--accent)}
-    .project-card { background:#0b0b0b;padding:12px;border-radius:10px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.03) }
+    input[type="text"], input[type="tel"], textarea, select { width:100%; padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.12); background:#fff;color:#000 }
+    input[type="file"]{color:#000}
+    .project-card { background:#fff;padding:12px;border-radius:10px;margin-bottom:12px;border:1px solid #ddd;color:#000 }
 
-    .project-thumb { width:100%;height:140px;object-fit:cover;border-radius:8px;margin-top:8px;border:1px solid rgba(255,255,255,0.03) }
+    .project-thumb { width:100%;height:140px;object-fit:cover;border-radius:8px;margin-top:8px;border:1px solid #ddd }
 
     .actions { display:flex;gap:8px;margin-top:8px }
-    .actions button { padding:8px 10px;border-radius:8px;border:none;background:rgba(255,255,255,0.04);color:var(--accent);cursor:pointer }
-    .actions button.danger{background:rgba(255,50,50,0.12);color:#ffb4b4}
+    .actions button { padding:8px 10px;border-radius:8px;border:none;background:#222;color:#fff;cursor:pointer }
+    .actions button.danger{background:#b71c1c}
 
     /* Responsive */
     @media(max-width:980px){.hero{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,1fr)}.container{padding:18px}}
@@ -99,13 +117,14 @@
     .center{text-align:center}
     .progress-bar { height:10px; background:rgba(255,255,255,0.06); border-radius:8px; overflow:hidden; margin-top:8px }
     .progress-fill { height:100%; background:linear-gradient(90deg,var(--gold), #c99b2f); width:0%; transition: width 700ms cubic-bezier(.2,.9,.3,1) }
+
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <div class="brand">
-        <span class="logo"><img src="/mnt/data/29ef804e-67f6-4007-bb90-ee5589ef703c.png" alt="Solaris Energy logo"></span>
+        <span class="logo"><img src="logo.png" alt="Solaris Energy logo"></span>
         <div>
           <h1 class="site-title">Solaris Energy</h1>
           <p class="tag">La energía solar en su máxima expresión</p>
@@ -126,13 +145,7 @@
       <div class="hero-left">
         <h2>Solaris Energy — <span style="color:var(--gold)">La energía solar en su máxima expresión</span></h2>
         <p>Soluciones fotovoltaicas residenciales y comerciales con diseño minimalista y rendimiento garantizado. Integración, instalación y mantenimiento premium para clientes que buscan eficiencia y estilo.</p>
-
-        <div class="stats">
-          <div class="stat card"><small class="muted">Producción típica</small><b>6.219 kWh / año</b></div>
-          <div class="stat card"><small class="muted">Retorno estimado</small><b>~4 años</b></div>
-          <div class="stat card"><small class="muted">Garantía</small><b>25 años paneles</b></div>
-        </div>
-
+        
         <div style="margin-top:22px">
           <a class="btn primary" href="#quote" id="cta-quote-2">Cotizar ahora</a>
           <a class="btn" href="https://wa.me/573222392822?text=Hola%20Solaris%20Energy,%20quiero%20cotizar%20un%20proyecto" target="_blank">Enviar WhatsApp</a>
@@ -157,7 +170,7 @@
     <section id="projects">
       <h3 style="margin-top:36px;color:var(--accent);">Proyectos recientes</h3>
       <div class="gallery" id="gallery">
-        <!-- proyectos públicos se cargan aquí -->
+        <!-- Se carga dinámicamente: primero el sol (sol.png) y después proyectos guardados -->
       </div>
     </section>
 
@@ -209,17 +222,17 @@
     <h3>Panel Privado — Solaris</h3>
     <div id="authBlock">
       <p class="muted">Introduce la contraseña para acceder</p>
-      <input type="password" id="adminPassword" placeholder="Contraseña" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--accent)">
+      <input type="password" id="adminPassword" placeholder="Contraseña" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.12);background:#fff;color:#000">
       <div style="display:flex;gap:8px;margin-top:10px">
-        <button id="btnLogin" class="btn primary">Entrar</button>
+        <button id="btnLogin" class="btn">Entrar</button>
         <button id="btnCloseAuth" class="btn">Cerrar</button>
       </div>
-      <p id="authError" style="color:#ff9b9b;display:none;margin-top:8px">Contraseña incorrecta</p>
+      <p id="authError" style="color:#b00000;display:none;margin-top:8px">Contraseña incorrecta</p>
     </div>
 
     <div id="panelContent" style="display:none">
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <strong style="color:var(--accent)">Administrar Proyectos</strong>
+        <strong style="color:#000">Administrar Proyectos</strong>
         <div>
           <button id="logoutBtn" class="btn">Cerrar sesión</button>
         </div>
@@ -243,12 +256,12 @@
           </select>
         </div>
         <div style="display:flex;gap:8px;margin-top:8px">
-          <button id="addProjBtn" class="btn primary">Agregar / Guardar</button>
+          <button id="addProjBtn" class="btn">Agregar / Guardar</button>
           <button id="clearFormBtn" class="btn">Limpiar</button>
         </div>
       </div>
 
-      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:12px 0">
+      <hr style="border:none;border-top:1px solid rgba(0,0,0,0.08);margin:12px 0">
 
       <div id="adminList">
         <!-- lista de proyectos con editar / borrar -->
@@ -367,13 +380,13 @@
         const div = document.createElement('div');
         div.className = 'project-card';
         div.innerHTML = `
-          <strong style="color:var(--gold)">${p.name}</strong>
-          <p style="color:var(--muted);margin:6px 0">${p.desc || ''}</p>
+          <strong style="color:#000">${escapeHtml(p.name)}</strong>
+          <p style="color:#000;margin:6px 0">${escapeHtml(p.desc || '')}</p>
           <div style="display:flex;gap:10px;align-items:center">
             <div style="flex:1">
-              <div class="progress-bar"><div class="progress-fill" style="width:${p.progress}%;"></div></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:${p.progress}%; background:linear-gradient(90deg,#000,#333);"></div></div>
             </div>
-            <div style="min-width:60px;text-align:right;color:var(--accent)">${p.progress}%</div>
+            <div style="min-width:60px;text-align:right;color:#000">${p.progress}%</div>
           </div>
         `;
         // image preview
@@ -425,13 +438,19 @@
 
     /***********************
      * Public gallery rendering
+     * Now: first show sol.png as fixed first card, then saved projects (or samples)
      ***********************/
     function renderPublicGallery() {
       const gallery = document.getElementById('gallery');
       gallery.innerHTML = '';
+
+      // 1) Add fixed sun image first (sol.png must be in same folder)
+      const sun = { name: 'Proyecto Solar', desc: 'Representación del sol - Solaris', image: 'sol.png', progress: 100 };
+      addProjectCard(gallery, sun);
+
       const projects = readProjects();
       if (projects.length === 0) {
-        // show sample placeholders if none
+        // show sample placeholders after the sun if none saved
         const samples = [
           {name:'Instalación residencial', desc:'Sistema de 5 kW. Rendimiento óptimo.', image:'https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1200&q=60', progress:100},
           {name:'Colegio - Aula sostenible', desc:'Proyecto educativo con paneles y monitoreo.', image:'https://images.unsplash.com/photo-1509395176040-9a3d1c8e6f3b?auto=format&fit=crop&w=1200&q=60', progress:85},
@@ -440,21 +459,41 @@
         samples.forEach(s => addProjectCard(gallery, s));
         return;
       }
+      // append saved projects
       projects.forEach(p => addProjectCard(gallery, p));
     }
 
     function addProjectCard(container, p) {
       const div = document.createElement('div');
       div.className = 'proj';
-      div.style.backgroundImage = p.image ? `url('${p.image}')` : `linear-gradient(45deg, rgba(212,175,55,0.08), rgba(33,150,243,0.06))`;
+      // if image exists, set background; otherwise gradient
+      if (p.image) {
+        // handle data URLs or normal URLs
+        div.style.backgroundImage = `url('${p.image}')`;
+      } else {
+        div.style.backgroundImage = `linear-gradient(45deg, rgba(212,175,55,0.08), rgba(33,150,243,0.06))`;
+      }
       const overlay = document.createElement('div');
       overlay.className = 'overlay';
-      overlay.innerHTML = `<div style="font-weight:800">${p.name}</div><div style="font-size:13px;color:var(--muted);margin-top:4px">${p.desc}</div>
+      // sanitize values to avoid accidental markup
+      overlay.innerHTML = `<div style="font-weight:800">${escapeHtml(p.name)}</div>
+        <div style="font-size:13px;color:var(--muted);margin-top:4px">${escapeHtml(p.desc || '')}</div>
         <div style="margin-top:8px">
           <div class="progress-bar"><div class="progress-fill" style="width:${p.progress}%;"></div></div>
         </div>`;
       div.appendChild(overlay);
       container.appendChild(div);
+    }
+
+    // simple escape to avoid breaking HTML with user text
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
     }
 
     // initial render
@@ -469,23 +508,27 @@
       window.open(url, '_blank');
     }
 
-    document.getElementById('sendBtn').addEventListener('click', function(){
-      var name = document.getElementById('name').value || 'Nombre no proporcionado';
-      var phone = document.getElementById('phone').value || 'Teléfono no proporcionado';
-      var address = document.getElementById('address').value || 'Dirección no proporcionada';
-      var service = document.getElementById('service').value || 'Servicio no especificado';
-      var message = document.getElementById('message').value || '';
+    // send quote
+    const sendBtn = document.getElementById('sendBtn');
+    if (sendBtn) {
+      sendBtn.addEventListener('click', function(){
+        var name = document.getElementById('name').value || 'Nombre no proporcionado';
+        var phone = document.getElementById('phone').value || 'Teléfono no proporcionado';
+        var address = document.getElementById('address').value || 'Dirección no proporcionada';
+        var service = document.getElementById('service').value || 'Servicio no especificado';
+        var message = document.getElementById('message').value || '';
 
-      var text = 'Hola Solaris Energy!%0A';
-      text += '*Solicitud de cotización*%0A';
-      text += 'Nombre: ' + name + '%0A';
-      text += 'Teléfono: ' + phone + '%0A';
-      text += 'Dirección: ' + address + '%0A';
-      text += 'Tipo de servicio: ' + service + '%0A';
-      text += 'Mensaje: ' + message;
+        var text = 'Hola Solaris Energy!%0A';
+        text += '*Solicitud de cotización*%0A';
+        text += 'Nombre: ' + name + '%0A';
+        text += 'Teléfono: ' + phone + '%0A';
+        text += 'Dirección: ' + address + '%0A';
+        text += 'Tipo de servicio: ' + service + '%0A';
+        text += 'Mensaje: ' + message;
 
-      openWhatsApp(text);
-    });
+        openWhatsApp(text);
+      });
+    }
 
     // CTA quick buttons open whatsapp
     document.querySelectorAll('#cta-quote, #cta-quote-2, #btn-wp').forEach(function(el){
@@ -508,16 +551,9 @@
       // small delay so CSS transitions look smooth
       setTimeout(()=> {
         document.querySelectorAll('.progress-fill').forEach(el => {
-          // width already set inline; keep as is (this ensures animation on admin list)
           const w = el.style.width;
           el.style.width = '0%';
           setTimeout(()=> el.style.width = w, 80);
-        });
-        // animate gallery small fills
-        document.querySelectorAll('.gallery .proj .progress-fill').forEach((el)=> {
-          const w = el.style.width;
-          el.style.width = '0%';
-          setTimeout(()=> el.style.width = w, 150);
         });
       }, 120);
     });
